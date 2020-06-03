@@ -1,7 +1,50 @@
+from typing import Callable, Any
 from collections import UserList
 
 class Vector(UserList):
-	def _apply_op(self, other, op):
+	'''
+	Extends python's internal type list() in order to make it behave as you 
+	would expect from a vector.
+
+	>>> a = Vector([1,2,3])
+	>>> a + a
+	[2, 4, 6]
+
+	>>> 10 * a
+	[10, 20, 30]
+
+	Dot product is supported through matmul:
+	>>> a @ a 	# 1*1 + 2*2 + 3*3
+	11
+
+	Multiplication is supported for convenience:
+	>>> a * a
+	[1, 4, 9]
+
+	Every operation supported by lists is also supported by class Vector.
+
+	Vector WILL override another class' behaviour if it is on the right-side
+	of an operand: Like so:
+	>>> [1, 2, 3] + a
+	[2, 4, 6]
+	>>> a + [1, 2, 3]
+	[2, 4, 6]
+
+	Using different-sized vectors WILL clip the remaining elements without 
+	warning, following python's default zip() behaviour:
+	>>> a + [1,2,3,4]
+	[2, 4, 6]
+	'''
+
+
+	def _apply_op(self, other:Any, op:Callable[[Any, Any], Any]):
+		'''
+		For internal use only. This method will apply op() into each element of
+		self and other, using the zip() method to concatenate them. That means
+		that the exceeding elements from either will be clipped without 
+		warning.
+		'''
+
 		try:
 			return Vector([op(x, y) for x, y in zip(self, other)])
 		except TypeError:
