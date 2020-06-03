@@ -50,4 +50,4 @@ class Vector(UserList):
 		return self._apply_op(other, lambda x, y: (x and not y) or (not x and y))
 
 	def __or__(self, other):
-		return self._apply_od(other, lambda x, y: x or y)
+		return self._apply_op(other, lambda x, y: x or y)
