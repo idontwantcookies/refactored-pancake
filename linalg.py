@@ -26,7 +26,7 @@ class Vector(UserList):
 		return self._apply_op(other, lambda x, y: x / y)
 
 	def __floordiv__(self, other):
-		return self._apply_op(other, lambda x, y: x / y)
+		return self._apply_op(other, lambda x, y: x // y)
 
 	def __mod__(self, other):
 		return self._apply_op(other, lambda x, y: x % y)
