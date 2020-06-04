@@ -36,13 +36,30 @@ class Vector(UserList):
 	[2, 4, 6]
 	'''
 
-
-	def _apply_op(self, other:Any, op:Callable[[Any, Any], Any]):
+	def apply(self, op:Callable[[Any], Any]):
 		'''
-		For internal use only. This method will apply op() into each element of
-		self and other, using the zip() method to concatenate them. That means
-		that the exceeding elements from either will be clipped without 
-		warning.
+		Applies a uniary operation through all the vector and returns a copy of
+		it with transformed elements.
+
+		Example:
+		>>> a = Vector([2, 1])
+		>>> a.apply(lambda x: x**2)
+		[4, 1]
+		'''
+
+		return Vector([op(x) for x in self])
+
+	def apply_bin(self, other:Any, op:Callable[[Any, Any], Any]):
+		'''
+		Applies op() into each element of self and other, using the zip() method
+		to concatenate them. That means	that the exceeding elements from either
+		will be clipped without warning.
+
+		Example:
+		>>> a = Vector([2, 2])
+		>>> b = Vector([3, 4, 1])
+		>>> a.apply(b, op=lambda x, y: x + y)	# sums each element of a and b
+		[5, 6]	# b[2] was truncated
 		'''
 
 		try:
@@ -51,46 +68,109 @@ class Vector(UserList):
 			return Vector([op(x, other) for x in self])
 
 	def __add__(self, other):
-		return self._apply_op(other, lambda x, y: x + y)
+		return self.apply_bin(other, lambda x, y: x + y)
+
+	def __radd__(self, other):
+		return self.apply_bin(other, lambda x, y: y + x)
 
 	def __neg__(self):
-		return self._apply_op(None, lambda x, y: -x)
+		return self.apply(lambda x: -x)
 
 	def __sub__(self, other):
-		return self._apply_op(other, lambda x, y: x - y)
+		return self.apply_bin(other, lambda x, y: x - y)
+
+	def __rsub__(self, other):
+		return self.apply_bin(other, lambda x, y: y - x)
 
 	def __mul__(self, other):
-		return self._apply_op(other, lambda x, y: x * y)
+		return self.apply_bin(other, lambda x, y: x * y)
+
+	def __rmul__(self, other):
+		return self.apply_bin(other, lambda x, y: y * x)
 
 	def __matmul__(self, other):
 		return sum(self * other)
 
+	def __rmatmul__(self, other):
+		return sum(other * self)
+
 	def __truediv__(self, other):
-		return self._apply_op(other, lambda x, y: x / y)
+		return self.apply_bin(other, lambda x, y: x / y)
+
+	def __rtruediv__(self, other):
+		return self.apply_bin(other, lambda x, y: y / x)
 
 	def __floordiv__(self, other):
-		return self._apply_op(other, lambda x, y: x // y)
+		return self.apply_bin(other, lambda x, y: x // y)
+
+	def __rfloordiv__(self, other):
+		return self.apply_bin(other, lambda x, y: y // x)
 
 	def __mod__(self, other):
-		return self._apply_op(other, lambda x, y: x % y)
+		return self.apply_bin(other, lambda x, y: x % y)
+
+	def __rmod__(self, other):
+		return self.apply_bin(other, lambda x, y: y % x)
 
 	def __divmod__(self, other):
 		return self // other, self % other
 
+	def __rdivmod__(self, other):
+		return other // self, other % self
+
 	def __pow__(self, other):
-		return self._apply_op(other, lambda x, y: x**y)
+		return self.apply_bin(other, lambda x, y: x**y)
+
+	def __rpow__(self, other):
+		return self.apply_bin(other, lambda x, y: y**x)
 
 	def __lshift__(self, other):
-		return self._apply_op(other, lambda x, y: x << y)
+		return self.apply_bin(other, lambda x, y: x << y)
+
+	def __rlshift__(self, other):
+		return self.apply_bin(other, lambda x, y: y << x)
 
 	def __rshift__(self, other):
-		return self._apply_op(other, lambda x, y: x >> y)
+		return self.apply_bin(other, lambda x, y: x >> y)
+
+	def __rrshift__(self, other):
+		return self.apply_bin(other, lambda x, y: y >> x)
 
 	def __and__(self, other):
-		return self._apply_op(other, lambda x, y: x and y)
+		return self.apply_bin(other, lambda x, y: x & y)
+
+	def __rand__(self, other):
+		return self.apply_bin(other, lambda x, y: y & x)
 
 	def __xor__(self, other):
-		return self._apply_op(other, lambda x, y: (x and not y) or (not x and y))
+		return self.apply_bin(other, lambda x, y: x ^ y)
+
+	def __rxor__(self, other):
+		return self.apply_bin(other, lambda x, y: y ^ x)
 
 	def __or__(self, other):
-		return self._apply_op(other, lambda x, y: x or y)
+		return self.apply_bin(other, lambda x, y: x | y)
+
+	def __ror__(self, other):
+		return self.apply_bin(other, lambda x, y: y | x)
+
+	def __eq__(self, other):
+		return self.apply_bin(other, lambda x, y: x == y)
+
+	def __lt__(self, other):
+		return self.apply_bin(other, lambda x, y: x < y)
+
+	def __le__(self, other):
+		return self.apply_bin(other, lambda x, y: x <= y)
+
+	def __gt__(self, other):
+		return self.apply_bin(other, lambda x, y: x > y)
+
+	def __ge__(self, other):
+		return self.apply_bin(other, lambda x, y: x >= y)
+
+	def __ne__(self, other):
+		return self.apply_bin(other, lambda x, y: x != y)
+
+	def as_bool(self):
+		return self.apply(bool)
