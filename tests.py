@@ -192,5 +192,17 @@ class MatrixTestCase(TestCase):
 		m = self.generate_random_matrix(4, 3)
 		self.assertMatrixEqual(m, m.transpose().transpose())
 
+	def test_matmul(self):
+		A = Matrix([[2, 3], [-1, 4]])
+		B = Matrix([[1, 2, 3], [4, 5, 6]])
+		self.assertMatrixEqual(A @ B, [[14, 19, 24], [15, 18, 21]])
+		self.assertMatrixEqual(B.transpose() @ A, [[-2, 19], [-1, 26], [ 0, 33]])
+
+	def test_rmatmul(self):
+		A = [[2, 3], [-1, 4]]
+		B = Matrix([[1, 2, 3], [4, 5, 6]])
+		self.assertMatrixEqual(A @ B, [[14, 19, 24], [15, 18, 21]])
+
+
 if __name__ == '__main__':
 	main()
