@@ -47,7 +47,7 @@ class Vector(UserList):
 		[4, 1]
 		'''
 
-		return Vector([op(x) for x in self])
+		return self.__class__([op(x) for x in self])
 
 	def apply_bin(self, other:Any, op:Callable[[Any, Any], Any]):
 		'''
