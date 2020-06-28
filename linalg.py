@@ -229,6 +229,16 @@ class Matrix(Vector):
 			out.append(row[col_number])
 		return out
 
+	def copy(self):
+		'''
+		Returns a deep copy of a matrix.
+		'''
+
+		out = Matrix()
+		for row in self:
+			out.append(row.copy())
+		return out
+
 	def transpose(self) -> 'Matrix':
 		'''
 		Returns a copy of this matrix, but swapping rows for columns.

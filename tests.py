@@ -203,6 +203,13 @@ class MatrixTestCase(TestCase):
 		B = Matrix([[1, 2, 3], [4, 5, 6]])
 		self.assertMatrixEqual(A @ B, [[14, 19, 24], [15, 18, 21]])
 
+	def test_deep_copy(self):
+		A = Matrix([[2, 1], [-1, 5]])
+		B = A.copy()
+		B[0][0] = 3
+		self.assertEqual(A[0][0], 2)
+		self.assertNotEqual(B[0][0], A[0][0])
+
 
 if __name__ == '__main__':
 	main()
