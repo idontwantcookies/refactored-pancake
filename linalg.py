@@ -1,4 +1,4 @@
-from typing import Callable, Any
+from typing import Callable, Any, Iterable
 from collections import UserList
 
 class Vector(UserList):
@@ -174,3 +174,47 @@ class Vector(UserList):
 
 	def as_bool(self):
 		return self.apply(bool)
+
+
+class Matrix(Vector):
+	def __init__(self, data:Iterable[Iterable[Any]]):
+		m = Vector()
+		for row in data:
+			m.append(Vector(row))
+		super().__init__(m)
+
+	def __str__(self):
+		# Similar to list's __str__, but adds newline for each row
+		return '[' + '\n ' .join(str(row) for row in self) + ']'
+
+	def __repr__(self):
+		return self.__str__()
+
+	def col(self, col_number:int) -> Vector:
+		'''
+		Returns a copy of a column as a Vector.
+		----------
+		Parameters
+		col_number: int
+			Number of the column being read
+		----------
+		Returns
+		out: Vector
+			Column as a vector (1d)
+		'''
+
+		out = Vector()
+		for row in self:
+			out.append(row[col_number])
+		return out
+
+	def transpose(self):
+		out = []
+		i = 0
+		while True:
+			try:
+				out.append(self.col(i))
+				i += 1
+			except IndexError:
+				break
+		return Matrix(out)
