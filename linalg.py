@@ -200,6 +200,7 @@ class Matrix(Vector):
 	def col(self, col_number:int) -> Vector:
 		'''
 		Returns a copy of a column as a Vector.
+
 		----------
 		Parameters
 		col_number: int
@@ -215,8 +216,16 @@ class Matrix(Vector):
 			out.append(row[col_number])
 		return out
 
-	def transpose(self):
-		out = []
+	def transpose(self) -> Matrix:
+		'''
+		Returns a copy of this matrix, but swapping rows for columns.
+
+		----------
+		Returns
+		out: Matrix
+			Transposed matrix
+		'''
+		out = Matrix()
 		i = 0
 		while True:
 			try:
@@ -224,4 +233,4 @@ class Matrix(Vector):
 				i += 1
 			except IndexError:
 				break
-		return Matrix(out)
+		return out
