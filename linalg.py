@@ -67,109 +67,109 @@ class Vector(UserList):
 		except TypeError:
 			return Vector([op(x, other) for x in self])
 
-	def __add__(self, other):
+	def __add__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x + y)
 
-	def __radd__(self, other):
+	def __radd__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y + x)
 
 	def __neg__(self):
 		return self.apply(lambda x: -x)
 
-	def __sub__(self, other):
+	def __sub__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x - y)
 
-	def __rsub__(self, other):
+	def __rsub__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y - x)
 
-	def __mul__(self, other):
+	def __mul__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x * y)
 
-	def __rmul__(self, other):
+	def __rmul__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y * x)
 
-	def __matmul__(self, other):
+	def __matmul__(self, other:Iterable[Any]):
 		return sum(self * other)
 
-	def __rmatmul__(self, other):
+	def __rmatmul__(self, other:Iterable[Any]):
 		return sum(other * self)
 
-	def __truediv__(self, other):
+	def __truediv__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x / y)
 
-	def __rtruediv__(self, other):
+	def __rtruediv__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y / x)
 
-	def __floordiv__(self, other):
+	def __floordiv__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x // y)
 
-	def __rfloordiv__(self, other):
+	def __rfloordiv__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y // x)
 
-	def __mod__(self, other):
+	def __mod__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x % y)
 
-	def __rmod__(self, other):
+	def __rmod__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y % x)
 
-	def __divmod__(self, other):
+	def __divmod__(self, other:Iterable[Any]):
 		return self // other, self % other
 
-	def __rdivmod__(self, other):
+	def __rdivmod__(self, other:Iterable[Any]):
 		return other // self, other % self
 
-	def __pow__(self, other):
+	def __pow__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x**y)
 
-	def __rpow__(self, other):
+	def __rpow__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y**x)
 
-	def __lshift__(self, other):
+	def __lshift__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x << y)
 
-	def __rlshift__(self, other):
+	def __rlshift__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y << x)
 
-	def __rshift__(self, other):
+	def __rshift__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x >> y)
 
-	def __rrshift__(self, other):
+	def __rrshift__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y >> x)
 
-	def __and__(self, other):
+	def __and__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x & y)
 
-	def __rand__(self, other):
+	def __rand__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y & x)
 
-	def __xor__(self, other):
+	def __xor__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x ^ y)
 
-	def __rxor__(self, other):
+	def __rxor__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y ^ x)
 
-	def __or__(self, other):
+	def __or__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x | y)
 
-	def __ror__(self, other):
+	def __ror__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: y | x)
 
-	def __eq__(self, other):
+	def __eq__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x == y)
 
-	def __lt__(self, other):
+	def __lt__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x < y)
 
-	def __le__(self, other):
+	def __le__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x <= y)
 
-	def __gt__(self, other):
+	def __gt__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x > y)
 
-	def __ge__(self, other):
+	def __ge__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x >= y)
 
-	def __ne__(self, other):
+	def __ne__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x != y)
 
 	def as_bool(self):
