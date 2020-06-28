@@ -177,10 +177,11 @@ class Vector(UserList):
 
 
 class Matrix(Vector):
-	def __init__(self, data:Iterable[Iterable[Any]]):
+	def __init__(self, data:Iterable[Iterable[Any]]=None):
 		m = Vector()
-		for row in data:
-			m.append(Vector(row))
+		if data is not None:
+			for row in data:
+				m.append(Vector(row))
 		super().__init__(m)
 
 	def __str__(self):
