@@ -197,6 +197,19 @@ class Matrix(Vector):
 	def __repr__(self):
 		return self.__str__()
 
+	def __matmul__(self, other:Iterable[Iterable[Any]]):
+		out = Matrix()
+		other = Matrix(other).transpose()
+		for row in self:
+			new_row = Vector()
+			for col in other:
+				new_row.append(row @ col)
+			out.append(new_row)
+		return out
+
+	def __rmatmul__(self, other:Iterable[Iterable[Any]]):
+		return Matrix(other).__matmul__(self)
+
 	def col(self, col_number:int) -> Vector:
 		'''
 		Returns a copy of a column as a Vector.
