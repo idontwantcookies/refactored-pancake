@@ -63,9 +63,9 @@ class Vector(UserList):
 		'''
 
 		try:
-			return Vector([op(x, y) for x, y in zip(self, other)])
+			return self.__class__([op(x, y) for x, y in zip(self, other)])
 		except TypeError:
-			return Vector([op(x, other) for x in self])
+			return self.__class__([op(x, other) for x in self])
 
 	def __add__(self, other:Iterable[Any]):
 		return self.apply_bin(other, lambda x, y: x + y)

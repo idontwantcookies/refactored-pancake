@@ -56,3 +56,31 @@ Every method from a python list is also avaiable inside a Vector, because it inh
 >>> print(v)
 [2, -1, 5]
 ```
+### Matrix class
+Matrix imports every method from Vector and behaves almost exactly like one, except for a few cases:
+
+- append() and \__getitem__() encapsulate the new data as a Vector()
+- It isn't printed in 1d like Vector and python lists, but instead a new line is printed after every element, to make it 2d-like
+- You can do column operations with .col() method as if they were vectors
+- You can transpose matrices
+- matmul behaves differently (TODO)
+
+```python
+>>> a = Matrix([[1, 2],
+...             [3, 4]])
+>>> a
+[[1, 2]
+ [3, 4]]
+>>> a + a
+[[2, 4]
+ [6, 8]]
+>>> a * a
+[[1, 4]
+ [9, 16]]
+>>> a.transpose()
+[[1, 3]
+ [2, 4]]
+>>> a / a.transpose()
+[[1.0, 0.6666666666666666]
+ [1.5, 1.0]]
+```
