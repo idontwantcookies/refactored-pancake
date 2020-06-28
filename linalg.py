@@ -184,6 +184,12 @@ class Matrix(Vector):
 				m.append(Vector(row))
 		super().__init__(m)
 
+	def append(self, obj, /):
+		super().append(Vector(obj))
+
+	def __setitem__(self, key, value, /):
+		super().__setitem__(key, Vector(value))
+
 	def __str__(self):
 		# Similar to list's __str__, but adds newline for each row
 		return '[' + '\n ' .join(str(row) for row in self) + ']'
