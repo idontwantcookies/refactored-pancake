@@ -189,8 +189,16 @@ def test_rmethods(v1, v2, method):
     if type(comparison) is bool:
         assert comparison
     else:
-        assert all(v1_left_op(v2) == v2_right_op(v1))
+        assert all(comparison)
 
 
 def test_as_bool(v3):
     assert all(v3.as_bool() == [False, True, True, True, True, False])
+
+
+def test_proj(v1, v2):
+    """
+    Checks if a vector minus its projection to another vector is orthogonal to
+    the other vector.
+    """
+    assert round((v1 - v1.proj(v2)) @ v2, 10) == 0

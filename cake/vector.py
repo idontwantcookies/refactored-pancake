@@ -39,6 +39,12 @@ class Vector(UserList):
     [2, 4, 6]
     """
 
+    def as_bool(self):
+        return self.apply(bool)
+
+    def proj(self, other: "Vector"):
+        return (self @ other) / (other @ other) * other
+
     def apply(self, op: Callable[[Any], Any]):
         """
         Applies a uniary operation through all the vector and returns a copy of
@@ -174,6 +180,3 @@ class Vector(UserList):
 
     def __ne__(self, other: Iterable[Any]):
         return self.apply_bin(other, lambda x, y: x != y)
-
-    def as_bool(self):
-        return self.apply(bool)
