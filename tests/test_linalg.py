@@ -2,7 +2,7 @@ from random import randint
 
 from pytest import fixture, raises, mark
 
-from linalg import Vector, Matrix
+from cake import Vector, Matrix
 
 
 @fixture
