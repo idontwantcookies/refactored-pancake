@@ -31,4 +31,4 @@ jobs:
         if [ -f requirements ]; then pip install -r requirements; fi
     - name: Test with coverage and flake8
       run: |
-        pytest --flake8 --cov
+        pytest
