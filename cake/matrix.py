@@ -11,6 +11,14 @@ class Matrix(Vector):
                 m.append(Vector(row))
         super().__init__(m)
 
+    def orthogonize(self):
+        for i, vector in enumerate(self):
+            new_vector = vector.copy()
+            for ortho_vector in self[:i]:
+                new_vector -= new_vector.proj(ortho_vector)
+            self[i] = new_vector
+        return self
+
     def append(self, obj, /):
         super().append(Vector(obj))
 
